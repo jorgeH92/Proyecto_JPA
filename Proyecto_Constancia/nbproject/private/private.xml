@@ -2,25 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/Reynaldo/Documents/NetBeansProjects/Proyecto_Constancia/web/index.xhtml</file>
-            <file>file:/C:/Users/Reynaldo/Documents/NetBeansProjects/Proyecto_Constancia/src/java/modelo/sesion/beans/PedidoPersonasFacade.java</file>
-            <file>file:/C:/Users/Reynaldo/Documents/NetBeansProjects/Proyecto_Constancia/src/java/modelo/sesion/beans/DetalleViajeFacade.java</file>
-            <file>file:/C:/Users/Reynaldo/Documents/NetBeansProjects/Proyecto_Constancia/src/java/modelo/sesion/beans/EmpleadoFacade.java</file>
-            <file>file:/C:/Users/Reynaldo/Documents/NetBeansProjects/Proyecto_Constancia/src/java/modelo/sesion/beans/ProductoFacade.java</file>
-            <file>file:/C:/Users/Reynaldo/Documents/NetBeansProjects/Proyecto_Constancia/src/java/modelo/sesion/beans/ViajesRealizadosFacade.java</file>
-            <file>file:/C:/Users/Reynaldo/Documents/NetBeansProjects/Proyecto_Constancia/src/java/modelo/sesion/beans/CargoFacade.java</file>
-            <file>file:/C:/Users/Reynaldo/Documents/NetBeansProjects/Proyecto_Constancia/src/java/modelo/sesion/beans/CamionFacade.java</file>
-            <file>file:/C:/Users/Reynaldo/Documents/NetBeansProjects/Proyecto_Constancia/src/java/modelo/sesion/beans/ZonaFacade.java</file>
-            <file>file:/C:/Users/Reynaldo/Documents/NetBeansProjects/Proyecto_Constancia/src/java/modelo/sesion/beans/MarcasFacade.java</file>
-            <file>file:/C:/Users/Reynaldo/Documents/NetBeansProjects/Proyecto_Constancia/src/java/modelo/sesion/beans/AbstractFacade.java</file>
-            <file>file:/C:/Users/Reynaldo/Documents/NetBeansProjects/Proyecto_Constancia/src/java/modelo/sesion/beans/PerdidaGarrafonesFacade.java</file>
-            <file>file:/C:/Users/Reynaldo/Documents/NetBeansProjects/Proyecto_Constancia/src/java/modelo/sesion/beans/CategoriaClientesFacade.java</file>
-            <file>file:/C:/Users/Reynaldo/Documents/NetBeansProjects/Proyecto_Constancia/src/java/modelo/sesion/beans/PresentacionFacade.java</file>
-            <file>file:/C:/Users/Reynaldo/Documents/NetBeansProjects/Proyecto_Constancia/src/java/modelo/sesion/beans/PedidosFacade.java</file>
-            <file>file:/C:/Users/Reynaldo/Documents/NetBeansProjects/Proyecto_Constancia/src/java/modelo/sesion/beans/IndemnizacionFacade.java</file>
-            <file>file:/C:/Users/Reynaldo/Documents/NetBeansProjects/Proyecto_Constancia/src/java/modelo/sesion/beans/AreaFacade.java</file>
-            <file>file:/C:/Users/Reynaldo/Documents/NetBeansProjects/Proyecto_Constancia/src/java/modelo/sesion/beans/DetallePedidoFacade.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

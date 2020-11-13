@@ -1,0 +1,247 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../PlantillaPrincipal/PlantillaPrincipal.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+            <h3 class="first">Capacitaciones</h3>
+
+    <ui:define name="content">
+         <h:form id="frmPedidos" acceptcharset="ISO-8859-1">
+             <p:dataTable id="tablaPedidos" value="#{pedidosBeans.listPed}"
+                                 var="p"
+                                 rows="10"
+                                 paginator="true"
+                                 paginatorTemplate="{CurrentPageReport}
+                                 {FirstPageLink} 
+                                 {PreviousPageLink} 
+                                 {PageLinks}
+                                 {NextPageLink} 
+                                 {LastPageLink}
+                                 {RowsPerPageDropdown}"
+                                 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                                 rowsPerPageTemplate="5,10,15"
+                                 widgetVar="wTablaPedidos">
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputLabel value="Busqueda" for="globalFilter"/>
+                                <p:inputText id="globalFilter" onkeyup="PF('wTablaPedidos').filter()"
+                                             style="width: 700px" />
+                                <p:commandButton action="AgregarPedidos.xhtml?faces-redirect=true" 
+                                                 icon="ui-icon-circle-plus"/>
+                            </p:outputPanel>
+                        </f:facet>
+                 <p:column headerText="CODIGO" filterBy="#{p.idPedido}"
+                                  style="width: 60px; margin-left: -4px">
+                     <h:outputLabel value="#{p.idPedido}"/>
+                        </p:column>
+                 <p:column headerText="CLIENTES" filterBy="#{p.idCliente.nombreCliente}" 
+                                  style="width: 80px; margin-left: -4px">
+                            <h:outputText value="#{p.idCliente.nombreCliente}"/>
+                        </p:column>
+                 <p:column headerText="ZONAS" filterBy="#{p.idZona.zona}" 
+                                  style="width: 80px; margin-left: -4px">
+                     <h:outputText value="#{p.idZona.zona}"/>
+                        </p:column>
+                  <p:column headerText="PERSONAS" filterBy="#{p.idPedidoPersonas.nombrePersona}" 
+                                  style="width: 80px; margin-left: -4px">
+                     <h:outputText value="#{p.idPedidoPersonas.nombrePersona}"/>
+                        </p:column>
+                 <p:column headerText="FECHA PEDIDO" filterBy="#{p.fechaPedido}" 
+                                  style="width: 80px; margin-left: -4px">
+                     <h:outputText value="#{p.fechaPedido}">
+                                       <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                                
+                        </p:column>
+                 
+                 <p:column headerText="FECHA ENTREGA" filterBy="#{p.fechaEntrega}" 
+                                  style="width: 80px; margin-left: -4px">
+                     <h:outputText value="#{p.fechaEntrega}">
+                                       <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                                
+                        </p:column>
+                 
+                 <p:column headerText="DIRECCIÓN ENTREGAS" filterBy="#{p.direccionEntrega}" 
+                                  style="width: 80px; margin-left: -4px">
+                     <h:outputText value="#{p.direccionEntrega}"/>
+                        </p:column>
+
+
+
+
+                        <p:column headerText="ACCIONES" style="width: 7%">
+                            <p:panelGrid styleClass="ui-noborder">
+                                 <p:column headerText="">
+                                    <div align="center">
+                                        <p:commandButton icon="ui-icon-pencil" 
+                                                         oncomplete="PF('dglModificar').show();"
+                                                         ajax="true" update=":formModificar">
+                                            <f:setPropertyActionListener target="#{pedidosBeans.pedidos}" 
+                                                                         value="#{p}"/>
+                                        </p:commandButton>
+                                    </div>
+                                </p:column>
+                                <p:column headerText="">
+                                    <p:commandButton icon="ui-icon-trash" 
+                                                     oncomplete="PF('confirmacion').show();"
+                                                     ajax="true" update=":frmPedidos:tablaPedidos">
+                                        <f:setPropertyActionListener target="#{pedidosBeans.pedidos}"
+                                                                     value="#{p}"/>
+                                    </p:commandButton>
+                                </p:column>
+                            </p:panelGrid>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+
+
+
+                <p:confirmDialog message="¿Realmente desea borrar el registro?"
+                                 header="MENSAJE DE CONFIRMACION"
+                                 widgetVar="confirmacion">
+
+                    <h:form>
+                        <p:commandButton id="confirm" value="Si"
+                                         actionListener="#{pedidosBeans.eliminarPedidos()}"                                                                  
+                                         update=":frmPedidos:tablaPedidos"  
+                                         oncomplete="PF('confirmacion').hide()">
+                        </p:commandButton>
+
+
+                        <p:commandButton id="confirme" value="No"
+                                         onclick="PF('confirmacion').hide()"
+                                         type="button">
+                        </p:commandButton>
+                    </h:form>
+                </p:confirmDialog>
+
+        
+         <h:form id="formModificar">
+                    <p:dialog id="dgl" widgetVar="dglModificar" header="Modificacion de datos del pedido">
+                        <p:panel header="Modificar">
+                            <p:panelGrid style="sinBorde">
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel for="id" value="CODIGO"/>
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText id="id" value="#{pedidosBeans.pedidos.idPedido}"/>
+                                    </p:column>
+                                </p:row> 
+
+
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel for="idCliente" value="CLIENTE"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:selectOneMenu id="idCliente" value="#{pedidosBeans.cateCli.idCategoriaClientes}" required="true">
+                                            <f:selectItem itemLabel="#{pedidosBeans.pedidos.idCliente.nombreCliente} " 
+                                                          itemValue="#{pedidosBeans.pedidos.idCliente.idCategoriaClientes}"/>
+                                            <f:selectItems value="#{pedidosBeans.listCatCli}" var="c" itemLabel="#{c.nombreCliente}" 
+                                                           itemValue="#{c.idCategoriaClientes}"/>
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                </p:row>
+
+                                      <p:row>
+                                    <p:column>
+                                        <p:outputLabel for="idZona" value="ZONA"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:selectOneMenu id="idZona" value="#{pedidosBeans.zona.idZona}" required="true">
+                                            <f:selectItem itemLabel="#{pedidosBeans.pedidos.idZona.zona} " 
+                                                          itemValue="#{pedidosBeans.pedidos.idZona.idZona}"/>
+                                            <f:selectItems value="#{pedidosBeans.listZona}" var="z" itemLabel="#{z.zona}" 
+                                                           itemValue="#{z.idZona}"/>
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                </p:row>
+                                
+                                      <p:row>
+                                    <p:column>
+                                        <p:outputLabel for="idPedidoPersonas" value="PERSONA"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:selectOneMenu id="idPedidoPersonas" value="#{pedidosBeans.pedPer.idPedidoPersonas}" required="true">
+                                            <f:selectItem itemLabel="#{pedidosBeans.pedidos.idPedidoPersonas.nombrePersona} " 
+                                                          itemValue="#{pedidosBeans.pedidos.idPedidoPersonas.idPedidoPersonas}"/>
+                                            <f:selectItems value="#{pedidosBeans.listPedPer}" var="pe" itemLabel="#{pe.nombrePersona}" 
+                                                           itemValue="#{pe.idPedidoPersonas}"/>
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                </p:row>
+                                
+                                       <p:row>
+                                    <p:column>
+                                        <p:outputLabel for="fechaPedido" value="FECHA PEDIDO" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:calendar id="fechaPedido" pattern="dd/MM/yyyy" value="#{pedidosBeans.pedidos.fechaPedido}" showOn="button" required="true"/>
+
+                                    </p:column>
+                                </p:row>
+                                
+                                
+                                       <p:row>
+                                    <p:column>
+                                        <p:outputLabel for="fechaEntrega" value="FECHA ENTREGA" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:calendar id="fechaEntrega" pattern="dd/MM/yyyy" value="#{pedidosBeans.pedidos.fechaEntrega}" showOn="button" required="true"/>
+
+                                    </p:column>
+                                </p:row>
+
+                                
+
+
+
+
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel for="direccionEntrega" value="DIRECCIÓN ENTREGA"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:inputText value="#{pedidosBeans.pedidos.direccionEntrega}"
+                                                     size="100" required="true"
+                                                     style="width: 1080px; margin-left: -4px" id="direccionEntrega">
+                                            <f:validateLength minimum="5"  maximum="1000"/>   
+                                        </p:inputText>                                
+                                    </p:column>
+                                </p:row>
+
+
+
+                            </p:panelGrid>
+                            <f:facet name="footer">
+                                <div align="center" style="font-weight: bold">
+                                    <p:column>
+                                        <p:commandButton id="guardar" value="Guardar" icon="ui-icon-check" style="margin: 0" 
+                                                         actionListener="#{pedidosBeans.modificarPedidos()}" 
+                                                         update=":frmPedidos:tablaPedidos"
+                                                         oncomplete="PF('dglModificar').hide()"
+                                                         action="TablaPedidos.xhtml">
+                                        </p:commandButton>
+                                    </p:column>
+                                    <p:column>
+                                        <p:commandButton id="cancelar"
+                                                         value="CANCELAR"
+                                                         icon="ui-icon-circle-close" style="margin-left: 10px" 
+                                                         action="TablaPedidos.xhtml?faces-redirect=true"
+                                                         process="@this">                            
+                                        </p:commandButton>
+                                    </p:column>
+                                </div>
+                            </f:facet>
+                        </p:panel>
+                    </p:dialog>
+                </h:form>
+
+        
+    </ui:define>
+
+</ui:composition>

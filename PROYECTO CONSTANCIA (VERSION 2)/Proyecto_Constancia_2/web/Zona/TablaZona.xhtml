@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../PlantillaPrincipal/PlantillaPrincipal.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+   <h3 class="first">Zona</h3>
+
+    <ui:define name="content">
+        
+           <h:form id="frmZona" acceptcharset="ISO-8859-1">
+               <p:dataTable id="tablaZona" value="#{zonaBeans.listZona}"
+                             var="z"
+                             rows="10"
+                             paginator="true"
+                             paginatorTemplate="{CurrentPageReport}
+                             {FirstPageLink} 
+                             {PreviousPageLink} 
+                             {PageLinks}
+                             {NextPageLink} 
+                             {LastPageLink}
+                             {RowsPerPageDropdown}"
+                             currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                             rowsPerPageTemplate="5,10,15"
+                             widgetVar="wTablaZona">
+                    <f:facet name="header">
+                        <p:outputPanel>
+                            <h:outputLabel value="Busqueda" for="globalFilter"/>
+                            <p:inputText id="globalFilter" onkeyup="PF('wTablaZona').filter()"
+                                         style="width: 700px" />
+                            <p:commandButton action="AgregarZona.xhtml?faces-redirect=true" 
+                                             icon="ui-icon-circle-plus"/>
+                        </p:outputPanel>
+                    </f:facet>
+                   <p:column headerText="ID ZONA" filterBy="#{z.idZona}"
+                              style="width: 60px; margin-left: -4px">
+                       <h:outputLabel value="#{z.idZona}"/>
+                    </p:column>
+                   <p:column headerText="ZONA" filterBy="#{z.zona}" 
+                              style="width: 80px; margin-left: -4px">
+                       <h:outputText value="#{z.zona}"/>
+                    </p:column>
+            
+                
+
+                
+
+                    <p:column headerText="ACCIONES" style="width: 7%">
+                        <p:panelGrid styleClass="ui-noborder">
+                            <p:column headerText="">
+                                <div align="center">
+                                    <p:commandButton icon="ui-icon-pencil" 
+                                                     oncomplete="PF('dglModificar').show();"
+                                                     ajax="true" update=":formModificar">
+                                        <f:setPropertyActionListener target="#{zonaBeans.zona}" 
+                                                                     value="#{z}"/>
+                                    </p:commandButton>
+                                </div>
+                            </p:column>
+
+
+
+                            <p:column headerText="">
+                                <p:commandButton icon="ui-icon-trash" 
+                                                 oncomplete="PF('confirmacion').show();"
+                                                 ajax="true" update=":frmZona:tablaZona">
+                                    <f:setPropertyActionListener target="#{zonaBeans.zona}"
+                                                                 value="#{z}"/>
+                                </p:commandButton>
+                            </p:column>
+                        </p:panelGrid>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        
+        
+        
+            <p:confirmDialog message="¿Realmente desea borrar el registro?"
+                             header="MENSAJE DE CONFIRMACION"
+                             widgetVar="confirmacion">
+
+                <h:form>
+                    <p:commandButton id="confirm" value="Si"
+                                     actionListener="#{zonaBeans.eliminarZona()}"                                                                  
+                                     update=":frmZona:tablaZona"  
+                                     oncomplete="PF('confirmacion').hide()">
+                    </p:commandButton>
+
+
+                    <p:commandButton id="confirme" value="No"
+                                     onclick="PF('confirmacion').hide()"
+                                     type="button">
+                    </p:commandButton>
+                </h:form>
+            </p:confirmDialog>
+        
+        
+            <h:form id="formModificar">
+                <p:dialog id="dgl" widgetVar="dglModificar" header="Modificacion de datos de Zona">
+                    <p:panel header="Modificar">
+                        <p:panelGrid style="sinBorde">
+                            <p:row>
+                                <p:column>
+                                    <p:outputLabel for="idZona" value="ID ZONA"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText id="idZona" value="#{zonaBeans.zona.idZona}"/>
+                                </p:column>
+                            </p:row> 
+
+
+                             <p:row>
+                                <p:column>
+                                    <p:outputLabel for="zona" value="ZONA"/>
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{zonaBeans.zona.zona}"
+                                                 size="100" required="true"
+                                                 style="width: 1080px; margin-left: -4px" id="zona">
+                                        <f:validateLength minimum="1"  maximum="15"/>   
+                                    </p:inputText>                                
+                                </p:column>
+                            </p:row>
+
+                        
+                        </p:panelGrid>
+                        <f:facet name="footer">
+                            <div align="center" style="font-weight: bold">
+                                <p:column>
+                                    <p:commandButton id="guardar" value="Guardar" icon="ui-icon-check" style="margin: 0" 
+                                                     actionListener="#{zonaBeans.modificarZona()}" 
+                                                     update=":frmZona:tablaZona"
+                                                     oncomplete="PF('dglModificar').hide()"
+                                                     action="TablaZona.xhtml">
+                                    </p:commandButton>
+                                </p:column>
+                                <p:column>
+                                    <p:commandButton id="cancelar"
+                                                     value="CANCELAR"
+                                                     icon="ui-icon-circle-close" style="margin-left: 10px" 
+                                                     action="TablaZona.xhtml?faces-redirect=true"
+                                                     process="@this">                            
+                                    </p:commandButton>
+                                </p:column>
+                            </div>
+                        </f:facet>
+                    </p:panel>
+                </p:dialog>
+            </h:form>
+        
+
+    </ui:define>
+
+</ui:composition>
